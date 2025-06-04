@@ -1,5 +1,3 @@
-{ pkgs }:
-
 pkgs.stdenv.mkDerivation rec {
   pname = "jdownloader";
   version = "2";

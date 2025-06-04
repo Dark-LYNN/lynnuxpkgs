@@ -8,7 +8,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in {
-      packages.${system}.default = pkgs.callPackage ./default.nix {};
+      packages.${system}.default = import ./default.nix pkgs;
       defaultPackage.${system} = self.packages.${system}.default;
     };
 }
