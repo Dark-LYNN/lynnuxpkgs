@@ -1,6 +1,5 @@
-let
-  pkgs = import <nixpkgs> {};
-in
+{ pkgs }:
+
 pkgs.stdenv.mkDerivation rec {
   pname = "jdownloader";
   version = "2";
