@@ -11,7 +11,6 @@ pkgs.stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ pkgs.makeWrapper pkgs.jre ];
-  homeDir = builtins.getEnv "HOME";
 
   installPhase = ''
     mkdir -p $out/libexec/jdownloader
@@ -20,18 +19,19 @@ pkgs.stdenv.mkDerivation rec {
     mkdir -p $out/bin
     cat > $out/bin/jdownloader <<EOF
 #!/bin/sh
+  homeDir="$HOME"
 
-mkdir -p "${homeDir}/.config/JDownloader/cfg" "${homeDir}/.config/JDownloader/logs"
-cd ${homeDir}/.config/JDownloader
+mkdir -p "$homeDir/.config/JDownloader/cfg" "$homeDir/.config/JDownloader/logs"
+cd homeDir/.config/JDownloader
 
-if [ ! -e "${homeDir}/.config/JDownloader/JDownloader.jar" ]; then
+if [ ! -e "homeDir/.config/JDownloader/JDownloader.jar" ]; then
   cp "$out/libexec/jdownloader/JDownloader.jar" "${homeDir}/.config/JDownloader/JDownloader.jar"
   chmod u+w ${homeDir}/.config/JDownloader/JDownloader.jar
 fi
 
-export JD_CONFIG_DIR="${homeDir}/.config/JDownloader"
+export JD_CONFIG_DIR="homeDir/.config/JDownloader"
 
-exec ${pkgs.jre}/bin/java -jar "${homeDir}/.config/JDownloader/JDownloader.jar" "$@"
+exec ${pkgs.jre}/bin/java -jar "homeDir/.config/JDownloader/JDownloader.jar" "$@"
 EOF
 
   chmod +x $out/bin/jdownloader
