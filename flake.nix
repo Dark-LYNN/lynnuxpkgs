@@ -9,6 +9,5 @@
       pkgs = import nixpkgs { inherit system; };
     in {
       packages.${system}.default = import ./default.nix pkgs;
-      defaultPackage.${system} = self.packages.${system}.default;
     };
 }
